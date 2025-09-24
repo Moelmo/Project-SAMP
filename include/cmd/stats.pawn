@@ -1,0 +1,23 @@
+#if !defined _stats_included
+#define _stats_included
+
+#include <open.mp>
+
+stock ShowPlayerStats(playerid) {
+    new Float:health, Float:armour;
+    GetPlayerHealth(playerid, health);
+    GetPlayerArmour(playerid, armour);
+
+    new Float:score;
+    GetPlayerScore(playerid, score);
+    new Float:money;
+    GetPlayerMoney(playerid, money);
+    
+    new statsMessage[256];
+    format(statsMessage, sizeof(statsMessage), "Stats - Health: %.1f, Armour: %.1f, Money: $%.2f, Level: $%.2f", health, armour, money, score);
+    
+    SendClientMessage(playerid, 0xFFFFFFFF, statsMessage);
+    return 1;
+}
+
+#endif 
