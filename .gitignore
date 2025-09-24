@@ -1,0 +1,4 @@
+*
+!gamemodes/
+!include/
+!.gitignore
