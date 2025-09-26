@@ -1,4 +1,6 @@
 *
+*.pwn
+*.amx
 !gamemodes/
 !include/
 !.gitignore
