@@ -3,5 +3,5 @@
 *.amx
 !gamemodes/
 !gamemodes/*.pwn
-!include/
+!inc
 !.gitignore

@@ -1,36 +1,52 @@
+// This is a comment
+// uncomment the line below if you want to write a filterscript
+//#define FILTERSCRIPT
+
 #include <a_samp>
 #include <a_mysql>
 #include <db_config>
 #include <zcmd>
 #include <sscanf2>
+#include <easyDialog>
 
+// ============== features ==============
+#include "../features/command.pwn"
 
-// ===============FItures================
-#include "../include/cmd/stats.pawn"
-#include "../include/dialog/DialogCMD.pawn"
-#include "../include/cmd/help.pawn"
-
+// ===============Database================
 new MySQL:dbHandle;
 
+#if defined FILTERSCRIPT
 
-// ===============New variables================
-new gMyPickup;
+public OnFilterScriptInit()
+{
+	print("\n--------------------------------------");
+	print(" Blank Filterscript by your name here");
+	print("--------------------------------------\n");
+	return 1;
+}
+
+public OnFilterScriptExit()
+{
+	return 1;
+}
+
+#else
 
 main()
 {
-	printf(" ");
-	printf("  -------------------------------------");
+	printf("\n-------------------------------------");
 	printf("  |  Project S:RP Gamemode By Moelmo! |");
-	printf("  -------------------------------------");
-	printf(" ");
+	printf("  -------------------------------------\n");
 }
+
+#endif
 
 public OnGameModeInit()
 {
-	gMyPickup = CreatePickup(1274, 2, 1682.7867,-2242.8855,13.5469, -1);
-	SetGameModeText("My first open.mp gamemode!");
-	DisableInteriorEnterExits();
-	
+	// Don't use these lines if it's a filterscript
+	SetGameModeText("Blank Script");
+	AddPlayerClass(0, 1958.3783, 1343.1572, 15.3746, 269.1425, 0, 0, 0, 0, 0, 0);
+
     dbHandle = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB);
 
     if (dbHandle == MYSQL_INVALID_HANDLE || mysql_errno(dbHandle) != 0)
@@ -40,7 +56,7 @@ public OnGameModeInit()
     }
 
     print("[MySQL] Database connected successfully");
-    return 1;
+	return 1;
 }
 
 public OnGameModeExit()
@@ -48,13 +64,13 @@ public OnGameModeExit()
 	return 1;
 }
 
-/*
-      ___
-     / __|___ _ __  _ __  ___ _ _
-    | (__/ _ \ '  \| '  \/ _ \ ' \
-     \___\___/_|_|_|_|_|_\___/_||_|
-
-*/
+public OnPlayerRequestClass(playerid, classid)
+{
+	SetPlayerPos(playerid, 1958.3783, 1343.1572, 15.3746);
+	SetPlayerCameraPos(playerid, 1958.3783, 1343.1572, 15.3746);
+	SetPlayerCameraLookAt(playerid, 1958.3783, 1343.1572, 15.3746);
+	return 1;
+}
 
 public OnPlayerConnect(playerid)
 {
@@ -66,22 +82,12 @@ public OnPlayerDisconnect(playerid, reason)
 	return 1;
 }
 
-public OnPlayerRequestClass(playerid, classid)
-{
-	return 1;
-}
-
 public OnPlayerSpawn(playerid)
 {
 	return 1;
 }
 
-public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
-{
-	return 1;
-}
-
-public OnPlayerExitVehicle(playerid, vehicleid)
+public OnPlayerDeath(playerid, killerid, reason)
 {
 	return 1;
 }
@@ -96,53 +102,32 @@ public OnVehicleDeath(vehicleid, killerid)
 	return 1;
 }
 
-/*
-     ___              _      _ _    _
-    / __|_ __  ___ __(_)__ _| (_)__| |_
-    \__ \ '_ \/ -_) _| / _` | | (_-<  _|
-    |___/ .__/\___\__|_\__,_|_|_/__/\__|
-        |_|
-*/
-
-public OnFilterScriptInit()
-{
-	printf(" ");
-	printf("  -----------------------------------------");
-	printf("  |  Error: Script was loaded incorrectly |");
-	printf("  -----------------------------------------");
-	printf(" ");
-	return 1;
-}
-
-public OnFilterScriptExit()
-{
-	return 1;
-}
-
-public OnPlayerRequestSpawn(playerid)
+public OnPlayerText(playerid, text[])
 {
 	return 1;
 }
 
 public OnPlayerCommandText(playerid, cmdtext[])
 {
-	if (strcmp(cmdtext, "/stats", true) == 0) {
-		ShowPlayerStats(playerid);
-		return 1; // Command was handled
-	}
-	if (strcmp(cmdtext, "/rules", true) == 0) {
-		Rules(playerid);
-		return 1; // Command was handled
+	if (strcmp("/mycommand", cmdtext, true, 10) == 0)
+	{
+		// Do something here
+		return 1;
 	}
 	return 0;
 }
 
-public OnPlayerText(playerid, text[])
+public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	return 1;
 }
 
-public OnPlayerUpdate(playerid)
+public OnPlayerExitVehicle(playerid, vehicleid)
+{
+	return 1;
+}
+
+public OnPlayerStateChange(playerid, newstate, oldstate)
 {
 	return 1;
 }
@@ -167,75 +152,14 @@ public OnPlayerLeaveRaceCheckpoint(playerid)
 	return 1;
 }
 
-public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
-{	
-	RulesResponse(playerid, dialogid, response, listitem, inputtext);
-	return 1;
-}
-
-public OnPlayerEnterGangZone(playerid, zoneid)
-{
-	return 1;
-}
-
-public OnPlayerLeaveGangZone(playerid, zoneid)
-{
-	return 1;
-}
-
-public OnPlayerEnterPlayerGangZone(playerid, zoneid)
-{
-	return 1;
-}
-
-public OnPlayerLeavePlayerGangZone(playerid, zoneid)
-{
-	return 1;
-}
-
-public OnPlayerClickGangZone(playerid, zoneid)
-{
-	return 1;
-}
-
-public OnPlayerClickPlayerGangZone(playerid, zoneid)
-{
-	return 1;
-}
-
-public OnPlayerSelectedMenuRow(playerid, row)
-{
-	return 1;
-}
-
-public OnPlayerExitedMenu(playerid)
-{
-	return 1;
-}
-
-public OnClientCheckResponse(playerid, actionid, memaddr, retndata)
-{
-	return 1;
-}
-
-public OnRconLoginAttempt(ip[], password[], success)
-{
-	return 1;
-}
-
-public OnPlayerFinishedDownloading(playerid, virtualworld)
-{
-	return 1;
-}
-
-public OnPlayerRequestDownload(playerid, DOWNLOAD_REQUEST:type, crc)
-{
-	return 1;
-}
-
 public OnRconCommand(cmd[])
 {
-	return 0;
+	return 1;
+}
+
+public OnPlayerRequestSpawn(playerid)
+{
+	return 1;
 }
 
 public OnObjectMoved(objectid)
@@ -250,101 +174,10 @@ public OnPlayerObjectMoved(playerid, objectid)
 
 public OnPlayerPickUpPickup(playerid, pickupid)
 {
-	if(pickupid == gMyPickup) {
-		SendClientMessage(playerid, 0xFFFFFFFF, "You picked up Money $100!");
-		GivePlayerMoney(playerid, 100);
-	}
-	return 1;
-}
-
-public OnPlayerPickUpPlayerPickup(playerid, pickupid)
-{
-	return 1;
-}
-
-public OnPickupStreamIn(pickupid, playerid)
-{
-	return 1;
-}
-
-public OnPickupStreamOut(pickupid, playerid)
-{
-	return 1;
-}
-
-public OnPlayerPickupStreamIn(pickupid, playerid)
-{
-	return 1;
-}
-
-public OnPlayerPickupStreamOut(pickupid, playerid)
-{
-	return 1;
-}
-
-public OnPlayerStreamIn(playerid, forplayerid)
-{
-	return 1;
-}
-
-public OnPlayerStreamOut(playerid, forplayerid)
-{
-	return 1;
-}
-
-public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
-{
-	SetPlayerPos(playerid, fX, fY, fZ + 1.0);
-	SendClientMessage(playerid, 0xFFFFFFFF, "Teleported to the clicked location.");
-	return 1;
-}
-
-public OnIncomingConnection(playerid, ip_address[], port)
-{
-	return 1;
-}
-
-public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
-{
-	return 1;
-}
-
-public OnPlayerClickTextDraw(playerid, Text:clickedid)
-{
-	return 1;
-}
-
-public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
-{
-	return 1;
-}
-
-public OnTrailerUpdate(playerid, vehicleid)
-{
-	return 1;
-}
-
-public OnVehicleSirenStateChange(playerid, vehicleid, newstate)
-{
-	return 1;
-}
-
-public OnVehicleStreamIn(vehicleid, forplayerid)
-{
-	return 1;
-}
-
-public OnVehicleStreamOut(vehicleid, forplayerid)
-{
 	return 1;
 }
 
 public OnVehicleMod(playerid, vehicleid, componentid)
-{
-	return 1;
-}
-
-public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
 	return 1;
 }
@@ -359,12 +192,69 @@ public OnVehicleRespray(playerid, vehicleid, color1, color2)
 	return 1;
 }
 
-public OnVehicleDamageStatusUpdate(vehicleid, playerid)
+public OnPlayerSelectedMenuRow(playerid, row)
 {
 	return 1;
 }
 
-public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_x, Float:new_y, Float:new_z, Float:vel_x, Float:vel_y, Float:vel_z)
+public OnPlayerExitedMenu(playerid)
 {
+	return 1;
+}
+
+public OnPlayerInteriorChange(playerid, newinteriorid, oldinteriorid)
+{
+	return 1;
+}
+
+public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+{
+	return 1;
+}
+
+public OnRconLoginAttempt(ip[], password[], success)
+{
+	return 1;
+}
+
+public OnPlayerUpdate(playerid)
+{
+	return 1;
+}
+
+public OnPlayerStreamIn(playerid, forplayerid)
+{
+	return 1;
+}
+
+public OnPlayerStreamOut(playerid, forplayerid)
+{
+	return 1;
+}
+
+public OnVehicleStreamIn(vehicleid, forplayerid)
+{
+	return 1;
+}
+
+public OnVehicleStreamOut(vehicleid, forplayerid)
+{
+	return 1;
+}
+
+public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+	return 1;
+}
+
+public OnPlayerClickPlayer(playerid, clickedplayerid, source)
+{
+	return 1;
+}
+
+public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
+{
+	SetPlayerPos(playerid, fX, fY, fZ + 1.0);
+	SendClientMessage(playerid, 0xFFFFFFFF, "Teleported to the clicked location.");
 	return 1;
 }
