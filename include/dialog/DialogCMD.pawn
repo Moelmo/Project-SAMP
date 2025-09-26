@@ -1,7 +1,7 @@
 #if !defined _Dialog_included
 #define _Dialog_included
 
-#include <open.mp>
+#include <a_samp>
 
 #define DIALOG_RULES 1
 

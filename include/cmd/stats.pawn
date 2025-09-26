@@ -1,7 +1,7 @@
 #if !defined _stats_included
 #define _stats_included
 
-#include <open.mp>
+#include <a_samp>
 
 stock ShowPlayerStats(playerid) {
     new Float:health, Float:armour;
